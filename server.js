@@ -24,8 +24,12 @@ if(process.env.NODE_ENV === 'development') {
     app.use(cors({origin: `http://localhost:3000`}))
 }
 
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
+// // Serve up static assets (usually on heroku)
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static("client/build"));
+// }
+
+if (process.env.NODE_ENV === "development") {
     app.use(express.static("client/build"));
 }
 
@@ -44,8 +48,8 @@ app.use('/api', truckRoutes);
 // .catch(() => console.log('DB Connection Error', err));
 
 
-mongoose.connect((process.env.MONGODB_URI || "mongodb://localhost/foodtrucks"), {
-// mongoose.connect((process.env.DATABASE || "mongodb://localhost/foodtrucks"), {
+// mongoose.connect((process.env.MONGODB_URI || "mongodb://localhost/foodtrucks"), {
+mongoose.connect((process.env.DATABASE || "mongodb://localhost/foodtrucks"), {
     useFindAndModify: false,
     useUnifiedTopology: true,
     useNewUrlParser: true,
