@@ -19,7 +19,8 @@ app.use(express.json());
 app.use(morgan('dev'));
 // app.use(bodyParser.json());
 app.use(cors()); //allows all origins  or configure to restrict calls to certain domains
-if(process.env.NODE_ENV = 'development') {
+
+if(process.env.NODE_ENV === 'development') {
     app.use(cors({origin: `http://localhost:3000`}))
 }
 
@@ -42,7 +43,9 @@ app.use('/api', truckRoutes);
 // .then(() => console.log('DB connected'))
 // .catch(() => console.log('DB Connection Error', err));
 
+
 mongoose.connect((process.env.MONGODB_URI || "mongodb://localhost/foodtrucks"), {
+// mongoose.connect((process.env.DATABASE || "mongodb://localhost/foodtrucks"), {
     useFindAndModify: false,
     useUnifiedTopology: true,
     useNewUrlParser: true,
