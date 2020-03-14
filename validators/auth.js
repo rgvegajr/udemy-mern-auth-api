@@ -13,8 +13,6 @@ exports.userSignupValidator = [
         .withMessage('Password must be at least 6 characters long'),
 ];
 
-
-
 // exports.resetPasswordValidator = [
 //     check('name')
 //         .not()

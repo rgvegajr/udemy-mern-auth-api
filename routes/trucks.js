@@ -30,7 +30,6 @@ router.get("/", function(req, res){
 router.post("/", middleware.isLoggedIn, function(req, res){
   // get data from form and add to campgrounds array
   let name = req.body.name;
-  let foodCategory = req.body.foodCategory;
   let address = req.body.address;
   let hours = req.body.hours;
   let website = req.body.website;

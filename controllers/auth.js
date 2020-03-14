@@ -1,16 +1,16 @@
 //send email link at signup
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-// const expressJwt = require('express-jwt');
+const expressJwt = require('express-jwt');
 //sendgrid
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+//Username & Password auth code below, no sendgrid
+
 // exports.signup = (req,res) => {
-//     // console.log('REQ BODY ON SIGNUP', req.body);
+//     console.log('REQ BODY ON SIGNUP', req.body);
 //     const {name, email, password} = req.body;
-
-
 //     User.findOne({email}).exec((err, user) => { // key and value are the same so single entry
 //         if (user) {
 //             return res.status(400).json({
@@ -19,25 +19,24 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 //         }
 //     }); 
 
-//     let newUser = new User({name, email, password});
+//     const user = new User({name, email, password});
 
-//     newUser.save((err, success) => {
+//     user.save((err, success) => {
 //         if(err) {
-//             console,log("SIGNUP ERROR", err);
-//             return res.status(400).json({
-//                 error: err   
+//             console.log('SAVE USER IN ACCOUNT ACTIVATION ERROR', err);
+//             return res.status(401).json({
+//                 error: 'Error saving user in database.  Try to signup again'
 //             });
-//         };
-//         res.json({
-//             message: 'Signup success! Please signin'
-//         });
+//         }
+//         // return res.json({
+//         //     message: 'Signup success.  Please sign in.'
+//         // });
 //     });
-
-
-//     // res.json({
-//     //     data: 'you hit the signup endpoint...YAY x2 from controllers!'
-//     // });
+//     return res.json({
+//         message: 'Signup success.  Please sign in.'
+//     });
 // };
+
 
 exports.signup = (req,res) => {
     const {name, email, password} = req.body;
@@ -94,6 +93,7 @@ exports.accountActivation =  (req,res) => {
                 };
 
                 const {name, email, password} = jwt.decode(token);
+
                 const user = new User({name, email, password});
 
                 user.save((err, user) => {
@@ -115,6 +115,7 @@ exports.accountActivation =  (req,res) => {
     }
 
 };
+
 //check if user is trying to sign in but hasnt signedup yet
 //check if password matched hashed-pw
 //if yes, generate jwt to be sent to client for access to protected routes
