@@ -10,6 +10,7 @@ const app = express()
 
 // import routes
 const authRoutes = require('./routes/auth');
+const truckRoutes = require('./routes/trucks')
 
 //app middlewares
 // Define middleware here
@@ -29,6 +30,7 @@ if (process.env.NODE_ENV === "production") {
 
 //middleware
 app.use('/api', authRoutes);
+app.use('/api', truckRoutes);
 
 // Connect to the Mongo DB
 // mongoose.connect(process.env.DATABASE, {

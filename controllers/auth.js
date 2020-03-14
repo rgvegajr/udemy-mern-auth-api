@@ -142,6 +142,11 @@ exports.signin = (req,res) => {
         })
     })
 };
+
+exports.requireSignin = expressJwt({
+    secret: process.env.JWT_SECRET  //req.user
+});
+
 /**above works but can end up with many junk users and emails, so prefer to use email confirmation prior to creating account and sending to db
  * user sign up willbe sent encoded in jwt with url link, will be taken to client side react app
  * 
